@@ -1,16 +1,58 @@
 {
-  "miniprogramRoot": "./dist",
-  "projectname": "coze-mini-program",
-  "description": "test",
+  "miniprogramRoot": "./dist/",
+  "projectname": "海豚电竞",
+  "description": "海豚电竞门店管理小程序",
   "appid": "touristappid",
   "setting": {
-    "urlCheck": true,
-    "es6": false,
-    "enhance": false,
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": false,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "uglifyFileName": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
     "compileHotReLoad": false,
-    "postcss": false,
-    "minified": false
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "enableEngineNative": false,
+    "useIsolateContext": true,
+    "userConfirmedBundleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "disableUseStrict": false,
+    "minifyWXML": true,
+    "showES6CompileOption": false,
+    "useCompilerPlugins": false
   },
   "compileType": "miniprogram",
-  "packOptions": { "ignore": [{ "type": "folder", "value": "./assets" }] }
+  "libVersion": "2.19.4",
+  "packOptions": {
+    "ignore": [
+      {
+        "type": "file",
+        "value": ".eslintrc.js"
+      }
+    ]
+  },
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  },
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {}
 }
