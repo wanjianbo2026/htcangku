@@ -5,7 +5,6 @@ import { Network } from '@/network';
 import { useAppStore, UserRole, UserStatus } from '@/store/user';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import './login.css';
 
 interface LoginResponse {
@@ -108,31 +107,32 @@ const LoginPage = () => {
   };
 
   return (
-    <View className="login-container">
-      <View className="login-content">
-        {/* Logo区域 */}
-        <View className="login-header">
-          <View className="login-logo">
-            <Image
-              className="login-logo-image"
-              src="https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2F%E6%B5%B7%E8%B1%9A%E7%94%B5%E7%AB%9E14.jpg&nonce=24df1f4f-4a4a-4254-9697-38de43f14ac4&project_id=7638923900340011058&sign=91356f11e310cfdfba6726d6c1787f790ca9ab5d842923a016a7a9ce0a0b8468"
-              mode="aspectFill"
-            />
-          </View>
-          <Text className="login-subtitle block">任务管理系统</Text>
+    <View className="login-page">
+      {/* Logo区域 - 顶部居中 */}
+      <View className="logo-section">
+        <View className="logo-wrapper">
+          <Image
+            className="logo-image"
+            src="https://coze-coding-project.tos.coze.site/coze_storage_7638924372748632090/dolphin-logo_527cc007.png?sign=2093949670-26a94152f7-0-e269c3d91b839ced128ae83468ab1bd71e4e8ed37616e5f1d386a408e897cd3e"
+            mode="aspectFit"
+          />
         </View>
-        
-        <Card className="login-card">
-          <CardHeader>
-            <CardTitle className="block text-center">登录</CardTitle>
-            <CardDescription className="block text-center">请输入账号密码</CardDescription>
-          </CardHeader>
-          <CardContent className="login-form">
-            <View className="login-field">
-              <Text className="login-label block">用户名</Text>
-              <View className="login-input-wrapper">
+        <Text className="page-title block">任务管理系统</Text>
+      </View>
+
+      {/* 登录表单区域 */}
+      <View className="form-section">
+        <View className="form-card">
+          <View className="form-header">
+            <Text className="form-title block">账号登录</Text>
+          </View>
+          
+          <View className="form-body">
+            <View className="form-item">
+              <Text className="form-label block">用户名</Text>
+              <View className="input-box">
                 <Input
-                  className="login-input"
+                  className="form-input"
                   placeholder="请输入用户名"
                   value={username}
                   onInput={(e) => setUsername(e.detail.value)}
@@ -140,11 +140,11 @@ const LoginPage = () => {
               </View>
             </View>
             
-            <View className="login-field">
-              <Text className="login-label block">密码</Text>
-              <View className="login-input-wrapper">
+            <View className="form-item">
+              <Text className="form-label block">密码</Text>
+              <View className="input-box">
                 <Input
-                  className="login-input"
+                  className="form-input"
                   password
                   placeholder="请输入密码"
                   value={password}
@@ -154,55 +154,56 @@ const LoginPage = () => {
             </View>
             
             {error && (
-              <Text className="login-error block">{error}</Text>
+              <View className="error-box">
+                <Text className="error-text block">{error}</Text>
+              </View>
             )}
             
             <Button
-              className="login-button"
+              className="submit-btn"
               onClick={handleLogin}
               disabled={loading}
             >
-              <Text>{loading ? '登录中...' : '登录'}</Text>
+              <Text className="submit-text">{loading ? '登录中...' : '登 录'}</Text>
             </Button>
             
-            <View className="login-footer">
+            <View className="form-footer">
               <Text
-                className="login-link"
+                className="register-link"
                 onClick={() => Taro.navigateTo({ url: '/pages/register/register' })}
               >
-                没有账号？去注册
+                还没有账号？立即注册
               </Text>
             </View>
+          </View>
+        </View>
 
-            {/* 测试账号提示 */}
-            <View className="login-test-accounts">
-              <Text 
-                className="login-test-toggle block"
-                onClick={() => setShowTestAccounts(!showTestAccounts)}
-              >
-                {showTestAccounts ? '隐藏测试账号 ▲' : '显示测试账号 ▼'}
-              </Text>
-              
-              {showTestAccounts && (
-                <View className="login-test-list">
-                  <Text className="login-test-title block">测试账号（点击自动填充）</Text>
-                  <View className="login-test-item" onClick={() => fillTestAccount('boss', 'woshibobo')}>
-                    <Text className="block">超级管理员：boss / woshibobo</Text>
-                  </View>
-                  <View className="login-test-item" onClick={() => fillTestAccount('regional', 'dolphin2024')}>
-                    <Text className="block">区域经理：regional / dolphin2024</Text>
-                  </View>
-                  <View className="login-test-item" onClick={() => fillTestAccount('supervisor', 'dolphin2024')}>
-                    <Text className="block">督导专员：supervisor / dolphin2024</Text>
-                  </View>
-                  <View className="login-test-item" onClick={() => fillTestAccount('zhanglei', 'dolphin2024')}>
-                    <Text className="block">店长：zhanglei / dolphin2024</Text>
-                  </View>
-                </View>
-              )}
+        {/* 测试账号提示 */}
+        <View className="test-section">
+          <Text 
+            className="test-toggle block"
+            onClick={() => setShowTestAccounts(!showTestAccounts)}
+          >
+            {showTestAccounts ? '收起测试账号 ▲' : '展开测试账号 ▼'}
+          </Text>
+          
+          {showTestAccounts && (
+            <View className="test-list">
+              <View className="test-item" onClick={() => fillTestAccount('boss', 'woshibobo')}>
+                <Text className="test-text block">超级管理员：boss / woshibobo</Text>
+              </View>
+              <View className="test-item" onClick={() => fillTestAccount('regional', 'dolphin2024')}>
+                <Text className="test-text block">区域经理：regional / dolphin2024</Text>
+              </View>
+              <View className="test-item" onClick={() => fillTestAccount('supervisor', 'dolphin2024')}>
+                <Text className="test-text block">督导专员：supervisor / dolphin2024</Text>
+              </View>
+              <View className="test-item" onClick={() => fillTestAccount('zhanglei', 'dolphin2024')}>
+                <Text className="test-text block">店长：zhanglei / dolphin2024</Text>
+              </View>
             </View>
-          </CardContent>
-        </Card>
+          )}
+        </View>
       </View>
     </View>
   );
