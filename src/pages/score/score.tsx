@@ -7,12 +7,14 @@ import { useUserStore } from '@/store/user';
 
 interface ScoreLog {
   id: string;
-  user_id: string;
-  score: number;
-  type: string;
-  remark: string;
-  operator_name?: string;
-  created_at: string;
+  userId: string;
+  delta: number;
+  reason: string;
+  beforeScore: number;
+  afterScore: number;
+  operatorId?: string;
+  operatorName?: string;
+  createdAt: string;
 }
 
 const ScorePage = () => {
@@ -34,18 +36,18 @@ const ScorePage = () => {
       const userRes = await Network.request({
         url: '/api/user/detail',
         method: 'GET',
-        data: { id: userInfo?.id },
+        data: { userId: userInfo?.id },
       });
       console.log('[ScorePage] getUserDetail response:', userRes.data);
       if (userRes.data?.code === 200 && userRes.data?.data) {
-        setTotalScore(userRes.data.data.total_score || 0);
+        setTotalScore(userRes.data.data.totalScore || 0);
       }
 
       // 获取积分记录
       const logsRes = await Network.request({
         url: '/api/user/score-logs',
         method: 'GET',
-        data: { user_id: userInfo?.id },
+        data: { userId: userInfo?.id },
       });
       console.log('[ScorePage] getScoreLogs response:', logsRes.data);
       if (logsRes.data?.code === 200 && logsRes.data?.data) {
@@ -62,20 +64,14 @@ const ScorePage = () => {
     }
   };
 
-  // 获取积分类型文本
-  const getTypeText = (type: string) => {
-    switch (type) {
-      case 'task':
-        return '任务奖励';
-      case 'adjust':
-        return '管理员调整';
-      case 'reject':
-        return '任务驳回';
-      case 'register':
-        return '注册奖励';
-      default:
-        return '其他';
+  // 获取积分变化文本
+  const getReasonText = (reason: string) => {
+    if (reason.includes('上报') || reason.includes('任务')) {
+      return '任务奖励';
+    } else if (reason.includes('管理员') || reason.includes('调整')) {
+      return '管理员调整';
     }
+    return reason;
   };
 
   // 格式化日期
@@ -116,24 +112,24 @@ const ScorePage = () => {
                 <View key={log.id} className="log-item">
                   <View className="log-content">
                     <View className="log-type">
-                      <Text className="block text-sm">{getTypeText(log.type)}</Text>
+                      <Text className="block text-sm">{getReasonText(log.reason)}</Text>
                     </View>
-                    <Text className="block text-xs text-gray-500 mt-1">{log.remark}</Text>
-                    {log.operator_name && (
+                    <Text className="block text-xs text-gray-500 mt-1">{log.reason}</Text>
+                    {log.operatorName && (
                       <Text className="block text-xs text-gray-400 mt-1">
-                        操作人：{log.operator_name}
+                        操作人：{log.operatorName}
                       </Text>
                     )}
                   </View>
                   <View className="log-right">
                     <Text
                       className="block font-semibold"
-                      style={{ color: log.score > 0 ? '#10b981' : '#ef4444' }}
+                      style={{ color: log.delta > 0 ? '#10b981' : '#ef4444' }}
                     >
-                      {log.score > 0 ? '+' : ''}{log.score}
+                      {log.delta > 0 ? '+' : ''}{log.delta}
                     </Text>
                     <Text className="block text-xs text-gray-500 mt-1">
-                      {formatDate(log.created_at)}
+                      {formatDate(log.createdAt)}
                     </Text>
                   </View>
                 </View>

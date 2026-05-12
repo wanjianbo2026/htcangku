@@ -12,21 +12,18 @@ interface LoginResponse {
   code: number;
   msg: string;
   data: {
-    token: string;
-    user: {
-      id: string;
-      username: string;
-      nickname: string;
-      role: string;
-      status: string;
-      phone?: string;
-      storeId?: string;
-      storeName?: string;
-      region?: string;
-      totalScore: number;
-      createdAt: string;
-      updatedAt: string;
-    };
+    id: string;
+    username: string;
+    nickname: string;
+    role: string;
+    status: string;
+    phone?: string;
+    storeId?: string;
+    storeName?: string;
+    region?: string;
+    totalScore: number;
+    createdAt: string;
+    updatedAt: string;
   };
 }
 
@@ -63,15 +60,8 @@ const LoginPage = () => {
       const loginRes = res.data as LoginResponse;
       
       if (loginRes.code === 200 && loginRes.data) {
-        // 保存 token
-        try {
-          localStorage.setItem('token', loginRes.data.token);
-        } catch (e) {
-          console.error('保存token失败:', e);
-        }
-        
         // 保存用户信息到 store
-        const { user } = loginRes.data;
+        const { ...user } = loginRes.data;
         setUserInfo({
           id: user.id,
           username: user.username,

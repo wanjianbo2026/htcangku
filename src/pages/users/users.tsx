@@ -60,6 +60,10 @@ const UsersPage = () => {
       const res = await Network.request({
         url: '/api/user/list',
         method: 'GET',
+        data: {
+          operatorRole: userInfo?.role,
+          operatorId: userInfo?.id,
+        },
       });
       
       console.log('用户列表响应:', res.data);
@@ -80,9 +84,13 @@ const UsersPage = () => {
   const handleApprove = async (userId: string) => {
     try {
       const res = await Network.request({
-        url: '/api/user/approve',
+        url: '/api/user/audit',
         method: 'POST',
-        data: { userId },
+        data: { 
+          userId,
+          operatorRole: userInfo?.role,
+          status: 'active' 
+        },
       });
       
       if (res.data.code === 200) {
@@ -100,9 +108,13 @@ const UsersPage = () => {
   const handleDisable = async (userId: string) => {
     try {
       const res = await Network.request({
-        url: '/api/user/disable',
+        url: '/api/user/audit',
         method: 'POST',
-        data: { userId },
+        data: { 
+          userId,
+          operatorRole: userInfo?.role,
+          status: 'disabled' 
+        },
       });
       
       if (res.data.code === 200) {
@@ -120,9 +132,13 @@ const UsersPage = () => {
   const handleEnable = async (userId: string) => {
     try {
       const res = await Network.request({
-        url: '/api/user/enable',
+        url: '/api/user/audit',
         method: 'POST',
-        data: { userId },
+        data: { 
+          userId,
+          operatorRole: userInfo?.role,
+          status: 'active' 
+        },
       });
       
       if (res.data.code === 200) {
@@ -147,7 +163,10 @@ const UsersPage = () => {
             const deleteRes = await Network.request({
               url: '/api/user/delete',
               method: 'POST',
-              data: { userId },
+              data: { 
+                userId,
+                operatorRole: userInfo?.role,
+              },
             });
             
             if (deleteRes.data.code === 200) {

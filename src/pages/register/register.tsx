@@ -55,7 +55,7 @@ const RegisterPage = () => {
 
     try {
       const res = await Network.request({
-        url: '/api/user/register',
+        url: '/api/user/create',
         method: 'POST',
         data: {
           username: username.trim(),

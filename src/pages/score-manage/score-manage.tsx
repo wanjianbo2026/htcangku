@@ -13,7 +13,7 @@ interface User {
   username: string;
   nickname: string;
   role: string;
-  total_score: number;
+  totalScore: number;
 }
 
 const ScoreManagePage = () => {
@@ -67,11 +67,12 @@ const ScoreManagePage = () => {
         url: '/api/user/adjust-score',
         method: 'POST',
         data: {
-          operator_id: userInfo?.id,
-          operator_name: userInfo?.nickname || userInfo?.username,
-          user_id: userId,
-          score: parseInt(adjustScore),
-          remark: adjustRemark || '管理员调整积分',
+          userId,
+          delta: parseInt(adjustScore),
+          reason: adjustRemark || '管理员调整积分',
+          operatorId: userInfo?.id,
+          operatorName: userInfo?.nickname || userInfo?.username,
+          operatorRole: userInfo?.role,
         },
       });
       console.log('[ScoreManagePage] adjustScore response:', res.data);
@@ -145,7 +146,7 @@ const ScoreManagePage = () => {
                   </View>
                   <View className="score-info">
                     <Text className="block text-lg font-semibold" style={{ color: '#f59e0b' }}>
-                      {item.total_score}
+                      {item.totalScore}
                     </Text>
                     <Text className="block text-xs text-gray-500">积分</Text>
                   </View>
