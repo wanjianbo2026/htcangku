@@ -1,0 +1,140 @@
+/* Tab切换（全宽） */
+.tabs-wrapper-full {
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  border-radius: 12px;
+  margin: 16px;
+  overflow: hidden;
+}
+
+.tab-item-full {
+  flex: 1;
+  padding: 14px;
+  text-align: center;
+  font-size: 15px;
+  color: #666;
+  border-bottom: 2px solid transparent;
+}
+
+.tab-item-full.active {
+  color: #1890ff;
+  border-bottom-color: #1890ff;
+  font-weight: 600;
+}
+
+/* 列表项 */
+.item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-left: 12px;
+}
+
+/* 标签 */
+.region-badge {
+  padding: 2px 8px;
+  background: #dbeafe;
+  border-radius: 4px;
+  color: #2563eb;
+}
+
+.type-badge {
+  padding: 2px 8px;
+  background: #e0f2fe;
+  border-radius: 4px;
+  color: #0ea5e9;
+}
+
+/* 编辑弹窗 */
+.edit-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* 表单 */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.input-wrapper {
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  padding: 10px 12px;
+}
+
+/* 类型选择器 */
+.type-selector {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.type-option {
+  padding: 8px 16px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+  color: #666;
+}
+
+.type-option.active {
+  background: #1890ff;
+  border-color: #1890ff;
+  color: #fff;
+}
+
+/* 按钮 */
+.form-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-top: 20px;
+}

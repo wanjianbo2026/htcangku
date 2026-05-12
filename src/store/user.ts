@@ -149,3 +149,6 @@ export const useAppStore = create<AppState>((set, get) => ({
     return canManageUser(userInfo.role, targetRole);
   },
 }));
+
+// 导出别名，方便使用
+export const useUserStore = useAppStore;

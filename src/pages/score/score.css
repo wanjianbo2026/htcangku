@@ -1,0 +1,51 @@
+/* 积分卡片 */
+.score-card {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+}
+
+.score-overview {
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* 空状态 */
+.empty-state {
+  padding: 40px 0;
+  text-align: center;
+}
+
+/* 积分记录列表 */
+.log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.log-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.log-content {
+  flex: 1;
+}
+
+.log-type {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #e0f2fe;
+  border-radius: 4px;
+  color: #0ea5e9;
+}
+
+.log-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: 60px;
+}
