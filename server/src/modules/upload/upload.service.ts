@@ -42,7 +42,7 @@ export class UploadService {
    * 批量上传文件
    */
   async uploadFiles(files: Express.Multer.File[]): Promise<Array<{ url: string; filename: string }>> {
-    const results = [];
+    const results: Array<{ url: string; filename: string }> = [];
     for (const file of files) {
       results.push(await this.uploadFile(file));
     }

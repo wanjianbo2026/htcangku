@@ -26,15 +26,14 @@ export class TaskService {
   constructor(
     @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
-  ) {}
+  ) {
+    this.initDefaultData();
+  }
+  
   // 内存存储（生产环境应使用数据库）
   private tasks: Map<string, Task> = new Map();
   private reports: Map<string, Report> = new Map();
   private stores: Map<string, Store> = new Map();
-
-  constructor() {
-    this.initDefaultData();
-  }
 
   /**
    * 初始化默认数据
