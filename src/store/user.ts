@@ -60,6 +60,11 @@ const canManageUser = (operatorRole: UserRole, targetRole: UserRole): boolean =>
     return targetRole === UserRole.SUPERVISOR || targetRole === UserRole.MANAGER;
   }
   
+  // 督导专员可以管理店长
+  if (operatorRole === UserRole.SUPERVISOR) {
+    return targetRole === UserRole.MANAGER;
+  }
+  
   return false;
 };
 

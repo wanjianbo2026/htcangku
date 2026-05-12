@@ -9,6 +9,7 @@ export default defineAppConfig({
     'pages/records/records',
     'pages/score/score',
     'pages/score-manage/score-manage',
+    'pages/leaderboard/leaderboard',
     'pages/settings/settings',
   ],
   window: {

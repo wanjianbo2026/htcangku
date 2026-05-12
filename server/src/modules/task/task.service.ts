@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { 
   Task, 
   Report, 
@@ -18,9 +18,15 @@ import {
   UpdateStoreDto,
   QueryStoreDto
 } from './task.dto';
+import { UserService } from '../user/user.service';
+import { UserRole } from '../user/user.types';
 
 @Injectable()
 export class TaskService {
+  constructor(
+    @Inject(forwardRef(() => UserService))
+    private readonly userService: UserService,
+  ) {}
   // 内存存储（生产环境应使用数据库）
   private tasks: Map<string, Task> = new Map();
   private reports: Map<string, Report> = new Map();
@@ -258,9 +264,14 @@ export class TaskService {
   /**
    * 审核上报记录
    */
-  reviewReport(reviewerId: string, reviewerName: string, dto: ReviewReportDto): Report | null {
+  async reviewReport(reviewerId: string, reviewerName: string, dto: ReviewReportDto): Promise<Report | null> {
     const report = this.reports.get(dto.report_id);
     if (!report) return null;
+
+    // 如果之前已经审核过，不能重复审核
+    if (report.status !== ReportStatus.PENDING) {
+      throw new Error('该记录已审核');
+    }
 
     report.status = dto.status;
     report.reviewer_id = reviewerId;
@@ -271,6 +282,23 @@ export class TaskService {
 
     if (dto.score !== undefined) {
       report.score = dto.score;
+    }
+
+    // 如果审核通过，自动给用户增加积分
+    if (dto.status === ReportStatus.APPROVED) {
+      try {
+        await this.userService.adjustScore({
+          userId: report.user_id,
+          delta: report.score,
+          reason: `任务审核通过：${report.task_name}`,
+          operatorId: reviewerId,
+          operatorName: reviewerName,
+          operatorRole: UserRole.SUPERVISOR, // 默认督导
+        });
+      } catch (error) {
+        console.error('自动增加积分失败:', error);
+        // 积分增加失败不影响审核结果
+      }
     }
 
     return report;

@@ -127,20 +127,30 @@ export class UserService {
     return user;
   }
 
+  // 获取当前操作人信息
+  private async getOperatorById(operatorId: string): Promise<User | null> {
+    return this.users.get(operatorId) || null;
+  }
+
   // 获取用户列表（带权限过滤）
   async getUserList(operatorRole: UserRole, operatorId: string, query?: QueryUsersDto): Promise<User[]> {
     let users = Array.from(this.users.values());
+    const operator = await this.getOperatorById(operatorId);
 
     // 如果不是boss，需要过滤用户
     if (operatorRole !== UserRole.SUPERADMIN) {
       if (operatorRole === UserRole.REGIONAL_MANAGER) {
-        // 区域经理只能看到督导专员和店长
+        // 区域经理只能看到本区域的督导专员和店长
         users = users.filter(u => 
-          u.role === UserRole.SUPERVISOR || u.role === UserRole.MANAGER
+          (u.role === UserRole.SUPERVISOR || u.role === UserRole.MANAGER) && 
+          (!operator?.region || u.region === operator.region)
         );
       } else if (operatorRole === UserRole.SUPERVISOR) {
-        // 督导专员只能看到店长
-        users = users.filter(u => u.role === UserRole.MANAGER);
+        // 督导专员只能看到本区域的店长
+        users = users.filter(u => 
+          u.role === UserRole.MANAGER && 
+          (!operator?.region || u.region === operator.region)
+        );
       } else {
         // 店长看不到其他用户
         users = [];

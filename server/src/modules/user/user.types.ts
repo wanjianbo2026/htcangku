@@ -83,7 +83,12 @@ export function canManageUser(operatorRole: UserRole, targetRole: UserRole): boo
     return targetRole === UserRole.SUPERVISOR || targetRole === UserRole.MANAGER;
   }
   
-  // 督导专员不能管理任何人
+  // 督导专员可以管理店长
+  if (operatorRole === UserRole.SUPERVISOR) {
+    return targetRole === UserRole.MANAGER;
+  }
+  
+  // 店长不能管理任何人
   return false;
 }
 

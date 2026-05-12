@@ -256,7 +256,7 @@ export class TaskController {
   ) {
     try {
       console.log('[TaskController] reviewReport:', { reviewerId, reviewerName, ...dto });
-      const report = this.taskService.reviewReport(reviewerId, reviewerName, dto);
+      const report = await this.taskService.reviewReport(reviewerId, reviewerName, dto);
       if (!report) {
         return {
           code: 404,

@@ -113,6 +113,12 @@ const IndexPage = () => {
               >
                 <Text>积分明细</Text>
               </Button>
+              <Button
+                className="menu-button"
+                onClick={() => Taro.navigateTo({ url: '/pages/leaderboard/leaderboard' })}
+              >
+                <Text>积分排行榜</Text>
+              </Button>
             </>
           )}
 
@@ -130,6 +136,12 @@ const IndexPage = () => {
                 onClick={() => Taro.navigateTo({ url: '/pages/score-manage/score-manage' })}
               >
                 <Text>积分管理</Text>
+              </Button>
+              <Button
+                className="menu-button"
+                onClick={() => Taro.navigateTo({ url: '/pages/leaderboard/leaderboard' })}
+              >
+                <Text>积分排行榜</Text>
               </Button>
               <Button
                 className="menu-button"
@@ -161,6 +173,12 @@ const IndexPage = () => {
               >
                 <Text>积分管理</Text>
               </Button>
+              <Button
+                className="menu-button"
+                onClick={() => Taro.navigateTo({ url: '/pages/leaderboard/leaderboard' })}
+              >
+                <Text>积分排行榜</Text>
+              </Button>
             </>
           )}
 
@@ -184,6 +202,12 @@ const IndexPage = () => {
                 onClick={() => Taro.navigateTo({ url: '/pages/score-manage/score-manage' })}
               >
                 <Text>积分管理</Text>
+              </Button>
+              <Button
+                className="menu-button"
+                onClick={() => Taro.navigateTo({ url: '/pages/leaderboard/leaderboard' })}
+              >
+                <Text>积分排行榜</Text>
               </Button>
               <Button
                 className="menu-button"

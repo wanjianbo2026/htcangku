@@ -1,0 +1,47 @@
+.page-container {
+  padding: 16px;
+  min-height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.page-card {
+  margin-bottom: 16px;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.rank-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-info {
+  flex: 1;
+  margin-left: 12px;
+}
+
+.score-info {
+  text-align: right;
+}
+
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+}
