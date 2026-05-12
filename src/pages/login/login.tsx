@@ -60,7 +60,6 @@ const LoginPage = () => {
       const loginRes = res.data as LoginResponse;
       
       if (loginRes.code === 200 && loginRes.data) {
-        // 保存用户信息到 store
         const { ...user } = loginRes.data;
         setUserInfo({
           id: user.id,
@@ -77,14 +76,12 @@ const LoginPage = () => {
           updatedAt: user.updatedAt,
         });
         
-        // 显示成功提示
         Taro.showToast({
           title: '登录成功',
           icon: 'success',
           duration: 2000
         });
         
-        // 延迟跳转，让用户看到成功提示
         setTimeout(() => {
           Taro.redirectTo({ url: '/pages/index/index' });
         }, 500);
@@ -99,7 +96,6 @@ const LoginPage = () => {
     }
   };
 
-  // 快速填充测试账号
   const fillTestAccount = (user: string, pass: string) => {
     setUsername(user);
     setPassword(pass);
@@ -108,102 +104,78 @@ const LoginPage = () => {
 
   return (
     <View className="login-page">
-      {/* Logo区域 - 顶部居中 */}
-      <View className="logo-section">
-        <View className="logo-wrapper">
-          <Image
-            className="logo-image"
-            src="https://coze-coding-project.tos.coze.site/coze_storage_7638924372748632090/dolphin-logo_527cc007.png?sign=2093949670-26a94152f7-0-e269c3d91b839ced128ae83468ab1bd71e4e8ed37616e5f1d386a408e897cd3e"
-            mode="aspectFit"
+      {/* 大Logo - 占满上方 */}
+      <View className="logo-area">
+        <Image
+          className="big-logo"
+          src="https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2F%E6%B5%B7%E8%B1%9A%E7%94%B5%E7%AB%9E14.jpg&nonce=24df1f4f-4a4a-4254-9697-38de43f14ac4&project_id=7638923900340011058&sign=91356f11e310cfdfba6726d6c1787f790ca9ab5d842923a016a7a9ce0a0b8468"
+          mode="aspectFit"
+        />
+      </View>
+      
+      {/* 任务管理系统标题 */}
+      <Text className="system-title block">任务管理系统</Text>
+
+      {/* 登录表单 - 简洁 */}
+      <View className="login-form">
+        <View className="input-group">
+          <Input
+            className="login-input"
+            placeholder="用户名"
+            value={username}
+            onInput={(e) => setUsername(e.detail.value)}
           />
         </View>
-        <Text className="page-title block">任务管理系统</Text>
+        
+        <View className="input-group">
+          <Input
+            className="login-input"
+            password
+            placeholder="密码"
+            value={password}
+            onInput={(e) => setPassword(e.detail.value)}
+          />
+        </View>
+        
+        {error && (
+          <Text className="error-msg block">{error}</Text>
+        )}
+        
+        <Button
+          className="login-btn"
+          onClick={handleLogin}
+          disabled={loading}
+        >
+          <Text className="btn-text">{loading ? '登录中...' : '登 录'}</Text>
+        </Button>
+        
+        <Text
+          className="register-link block"
+          onClick={() => Taro.navigateTo({ url: '/pages/register/register' })}
+        >
+          还没有账号？立即注册
+        </Text>
       </View>
 
-      {/* 登录表单区域 */}
-      <View className="form-section">
-        <View className="form-card">
-          <View className="form-header">
-            <Text className="form-title block">账号登录</Text>
-          </View>
-          
-          <View className="form-body">
-            <View className="form-item">
-              <Text className="form-label block">用户名</Text>
-              <View className="input-box">
-                <Input
-                  className="form-input"
-                  placeholder="请输入用户名"
-                  value={username}
-                  onInput={(e) => setUsername(e.detail.value)}
-                />
-              </View>
+      {/* 测试账号 */}
+      <View className="test-area">
+        <Text 
+          className="test-toggle block"
+          onClick={() => setShowTestAccounts(!showTestAccounts)}
+        >
+          {showTestAccounts ? '收起 ▲' : '测试账号 ▼'}
+        </Text>
+        
+        {showTestAccounts && (
+          <View className="test-list">
+            <View className="test-item" onClick={() => fillTestAccount('boss', 'woshibobo')}>
+              <Text className="test-text block">管理员：boss / woshibobo</Text>
             </View>
-            
-            <View className="form-item">
-              <Text className="form-label block">密码</Text>
-              <View className="input-box">
-                <Input
-                  className="form-input"
-                  password
-                  placeholder="请输入密码"
-                  value={password}
-                  onInput={(e) => setPassword(e.detail.value)}
-                />
-              </View>
-            </View>
-            
-            {error && (
-              <View className="error-box">
-                <Text className="error-text block">{error}</Text>
-              </View>
-            )}
-            
-            <Button
-              className="submit-btn"
-              onClick={handleLogin}
-              disabled={loading}
-            >
-              <Text className="submit-text">{loading ? '登录中...' : '登 录'}</Text>
-            </Button>
-            
-            <View className="form-footer">
-              <Text
-                className="register-link"
-                onClick={() => Taro.navigateTo({ url: '/pages/register/register' })}
-              >
-                还没有账号？立即注册
-              </Text>
+            <View className="test-item" onClick={() => fillTestAccount('zhanglei', 'dolphin2024')}>
+              <Text className="test-text block">店长：zhanglei / dolphin2024</Text>
             </View>
           </View>
-        </View>
-
-        {/* 测试账号提示 */}
-        <View className="test-section">
-          <Text 
-            className="test-toggle block"
-            onClick={() => setShowTestAccounts(!showTestAccounts)}
-          >
-            {showTestAccounts ? '收起测试账号 ▲' : '展开测试账号 ▼'}
-          </Text>
-          
-          {showTestAccounts && (
-            <View className="test-list">
-              <View className="test-item" onClick={() => fillTestAccount('boss', 'woshibobo')}>
-                <Text className="test-text block">超级管理员：boss / woshibobo</Text>
-              </View>
-              <View className="test-item" onClick={() => fillTestAccount('regional', 'dolphin2024')}>
-                <Text className="test-text block">区域经理：regional / dolphin2024</Text>
-              </View>
-              <View className="test-item" onClick={() => fillTestAccount('supervisor', 'dolphin2024')}>
-                <Text className="test-text block">督导专员：supervisor / dolphin2024</Text>
-              </View>
-              <View className="test-item" onClick={() => fillTestAccount('zhanglei', 'dolphin2024')}>
-                <Text className="test-text block">店长：zhanglei / dolphin2024</Text>
-              </View>
-            </View>
-          )}
-        </View>
+        )}
       </View>
     </View>
   );
