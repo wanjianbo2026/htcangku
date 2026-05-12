@@ -111,16 +111,16 @@ const LoginPage = () => {
     <View className="login-container">
       <View className="login-content">
         {/* Logo区域 */}
-        <View className="login-logo">
-          <Image
-            className="login-logo-image"
-            src="https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2F%E6%B5%B7%E8%B1%9A%E7%94%B5%E7%AB%9E14.png&nonce=03573333-a558-4792-8d3e-16a0358c66d2&project_id=7638923900340011058&sign=fdb73554675d2d576b7b5872a545a363e805c388bcc97929fcca4cf243077175"
-            mode="aspectFit"
-          />
+        <View className="login-header">
+          <View className="login-logo">
+            <Image
+              className="login-logo-image"
+              src="https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2F%E6%B5%B7%E8%B1%9A%E7%94%B5%E7%AB%9E14.jpg&nonce=24df1f4f-4a4a-4254-9697-38de43f14ac4&project_id=7638923900340011058&sign=91356f11e310cfdfba6726d6c1787f790ca9ab5d842923a016a7a9ce0a0b8468"
+              mode="aspectFill"
+            />
+          </View>
+          <Text className="login-subtitle block">任务管理系统</Text>
         </View>
-        
-        <Text className="login-title block">海豚电竞</Text>
-        <Text className="login-subtitle block">任务管理系统</Text>
         
         <Card className="login-card">
           <CardHeader>
