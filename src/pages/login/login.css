@@ -1,7 +1,7 @@
-/* 登录页面 - 使用LOGO背景色作为主色调 */
+/* 登录页面 - 完全统一的深蓝紫色背景 */
 .login-page {
   min-height: 100vh;
-  background-color: #101031; /* LOGO背景色 - 深蓝紫色，完全统一 */
+  background-color: #101031; /* LOGO背景色 - 完全统一 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,23 +13,24 @@
 /* Logo区域 - 放大显示，占满上方 */
 .logo-area {
   width: 100%;
-  height: 420px; /* 放大到420px */
+  height: 420px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 0;
+  background-color: #101031; /* 完全统一 */
 }
 
 .big-logo {
-  width: 95%; /* 放大宽度 */
-  max-width: 500px; /* 增加最大宽度 */
+  width: 95%;
+  max-width: 500px;
   height: 100%;
   object-fit: contain;
 }
 
 /* 系统标题 */
 .system-title {
-  font-size: 32px; /* 放大字体 */
+  font-size: 32px;
   font-weight: 600;
   color: #ffffff;
   margin-top: 15px;
@@ -37,31 +38,32 @@
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* 登录表单 - 简洁透明 */
+/* 登录表单 */
 .login-form {
   width: 100%;
-  max-width: 380px; /* 放大宽度 */
+  max-width: 380px;
   margin-top: 50px;
   display: flex;
   flex-direction: column;
   gap: 18px;
+  background-color: transparent; /* 透明背景 */
 }
 
 .input-group {
   width: 100%;
+  background-color: transparent; /* 透明背景 */
 }
 
 .login-input {
   width: 100%;
-  height: 56px; /* 放大高度 */
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  height: 56px;
+  background: rgba(16, 16, 49, 0.6); /* 同色系半透明 */
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 28px;
   padding: 0 24px;
   color: #ffffff;
-  font-size: 18px; /* 放大字体 */
+  font-size: 18px;
   box-sizing: border-box;
-  backdrop-filter: blur(10px);
 }
 
 .login-input::placeholder {
@@ -76,29 +78,28 @@
   padding: 8px 0;
 }
 
-/* 登录按钮 */
+/* 登录按钮 - 使用同色系 */
 .login-btn {
   width: 100%;
-  height: 56px; /* 放大高度 */
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border: none;
+  height: 56px;
+  background: linear-gradient(135deg, #1a1a4a 0%, #2a2a6a 100%); /* 同色系渐变 */
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 15px;
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
   transition: all 0.3s ease;
 }
 
 .login-btn:active {
   transform: scale(0.98);
-  box-shadow: 0 3px 15px rgba(102, 126, 234, 0.3);
+  background: linear-gradient(135deg, #2a2a6a 0%, #3a3a7a 100%);
 }
 
 .btn-text {
   color: #ffffff;
-  font-size: 20px; /* 放大字体 */
+  font-size: 20px;
   font-weight: 600;
   letter-spacing: 6px;
 }
@@ -117,6 +118,7 @@
   width: 100%;
   max-width: 380px;
   margin-top: 35px;
+  background-color: transparent; /* 透明背景 */
 }
 
 .test-toggle {
@@ -132,10 +134,12 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  background-color: transparent; /* 透明背景 */
 }
 
 .test-item {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(16, 16, 49, 0.4); /* 同色系半透明 */
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   padding: 12px 18px;
 }
