@@ -1,4 +1,4 @@
-import { View, Text } from '@tarojs/components';
+import { View, Text, Image } from '@tarojs/components';
 import { useState } from 'react';
 import Taro from '@tarojs/taro';
 import { Network } from '@/network';
@@ -32,6 +32,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showTestAccounts, setShowTestAccounts] = useState(false);
   
   const setUserInfo = useAppStore((state) => state.setUserInfo);
 
@@ -77,8 +78,17 @@ const LoginPage = () => {
           updatedAt: user.updatedAt,
         });
         
-        // 跳转到首页
-        Taro.redirectTo({ url: '/pages/index/index' });
+        // 显示成功提示
+        Taro.showToast({
+          title: '登录成功',
+          icon: 'success',
+          duration: 2000
+        });
+        
+        // 延迟跳转，让用户看到成功提示
+        setTimeout(() => {
+          Taro.redirectTo({ url: '/pages/index/index' });
+        }, 500);
       } else {
         setError(loginRes.msg || '登录失败');
       }
@@ -90,9 +100,25 @@ const LoginPage = () => {
     }
   };
 
+  // 快速填充测试账号
+  const fillTestAccount = (user: string, pass: string) => {
+    setUsername(user);
+    setPassword(pass);
+    setError('');
+  };
+
   return (
     <View className="login-container">
       <View className="login-content">
+        {/* Logo区域 */}
+        <View className="login-logo">
+          <Image
+            className="login-logo-image"
+            src="https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2F%E6%B5%B7%E8%B1%9A%E7%94%B5%E7%AB%9E14.png&nonce=03573333-a558-4792-8d3e-16a0358c66d2&project_id=7638923900340011058&sign=fdb73554675d2d576b7b5872a545a363e805c388bcc97929fcca4cf243077175"
+            mode="aspectFit"
+          />
+        </View>
+        
         <Text className="login-title block">海豚电竞</Text>
         <Text className="login-subtitle block">任务管理系统</Text>
         
@@ -146,6 +172,34 @@ const LoginPage = () => {
               >
                 没有账号？去注册
               </Text>
+            </View>
+
+            {/* 测试账号提示 */}
+            <View className="login-test-accounts">
+              <Text 
+                className="login-test-toggle block"
+                onClick={() => setShowTestAccounts(!showTestAccounts)}
+              >
+                {showTestAccounts ? '隐藏测试账号 ▲' : '显示测试账号 ▼'}
+              </Text>
+              
+              {showTestAccounts && (
+                <View className="login-test-list">
+                  <Text className="login-test-title block">测试账号（点击自动填充）</Text>
+                  <View className="login-test-item" onClick={() => fillTestAccount('boss', 'woshibobo')}>
+                    <Text className="block">超级管理员：boss / woshibobo</Text>
+                  </View>
+                  <View className="login-test-item" onClick={() => fillTestAccount('regional', 'dolphin2024')}>
+                    <Text className="block">区域经理：regional / dolphin2024</Text>
+                  </View>
+                  <View className="login-test-item" onClick={() => fillTestAccount('supervisor', 'dolphin2024')}>
+                    <Text className="block">督导专员：supervisor / dolphin2024</Text>
+                  </View>
+                  <View className="login-test-item" onClick={() => fillTestAccount('zhanglei', 'dolphin2024')}>
+                    <Text className="block">店长：zhanglei / dolphin2024</Text>
+                  </View>
+                </View>
+              )}
             </View>
           </CardContent>
         </Card>
